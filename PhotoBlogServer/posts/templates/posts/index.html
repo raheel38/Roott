@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Blog</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Django static CSS -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <h1 class="logo">Photo Blog</h1>
+    <a href="{% url 'add_post' %}" class="add-btn" title="Add new post">+</a>
+  </header>
+
+  <main class="post-list">
+    {% for post in posts %}
+      <div class="post-item">
+        <p class="date">{{ post.created_at|date:"Y년 n월 j일 g:i a" }}</p>
+        <h2 class="title">{{ post.title }}</h2>
+        {% if post.image %}
+          <div class="image-container">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+          </div>
+        {% endif %}
+        {% if post.content %}
+          <p class="content">{{ post.content|linebreaksbr }}</p>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p class="no-posts">아직 게시물이 없습니다.</p>
+    {% endfor %}
+  </main>
+</body>
+</html>

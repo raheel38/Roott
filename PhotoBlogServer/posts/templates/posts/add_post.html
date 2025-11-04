@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Post</title>
+  
+  <!-- Load Django static files -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'posts/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <h1 class="logo">Add New Post</h1>
+    <a href="{% url 'post_list' %}" class="add-btn">←</a>
+  </header>
+
+  <main class="post-form">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+    </form>
+  </main>
+</body>
+</html>
